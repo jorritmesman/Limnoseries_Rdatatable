@@ -47,7 +47,7 @@ df_small = data.frame(dt_small)
 
 ## Read from data
 dt_lake = fread("./data/MorasEtAl_ErkenObsWTemp_1961-2017.obs") 
-# Daily data of water temperature profiles from Lake Erken
+# Daily data of water temperature profiles from Lake Erken, Sweden
 # Downloaded from: https://doi.org/10.4211/hs.54375615d258461086125d5fc85a4c32
 # Moras et al. (2019). Hydrology and Earth System Sciences 23(12): 5001-5016.
 
@@ -182,7 +182,7 @@ setorder(dt_small, rank)
 setnames(dt_small, c("Letter", "Rank", "Number"))
 View(dt_small)
 
-# Change a data.frame/tibble/list to data.table (no more as.data.table)
+# Change a data.frame/tibble/list to data.table (instead of as.data.table)
 # or back to data.frame
 setDT(df_small)
 class(df_small)
@@ -413,7 +413,7 @@ setkey(dt_small, Letter)
 dt_small[, Number := Number * 2
          ][, Number := round(Number, 2)]
 
-# Personally, I feel this goes at the expense of readibility
+# Personally, I feel this goes at the expense of readability
 # while the updating by reference makes the speed increase due 
 # to this notation minimal. Sometimes handy. 
 
@@ -475,6 +475,8 @@ ggplot(dt_schmidt[date >= as.POSIXct("1999-01-01")])+
 # Convert to POSIXct (1970-2100): fasttime 
 # (repeated) matching: fastmatch
 # (and there are probably more)
+# Writing functions in C++ using the Rcpp package is probably the
+# most promising way to realise faster functions, but this requires effort. 
 
 ### Your scripts are fast now thanks to data.table, but storage is a problem!
 # The arrow package allows storing tables in feather or parquet format. 
@@ -495,6 +497,8 @@ ggplot(dt_schmidt[date >= as.POSIXct("1999-01-01")])+
 # Note that there might be multiple ways of doing these exercises.
 # Try to use data.table where possible, but if you prefer to mix 
 # with other packages; go ahead! 
+
+# For answers, see the "Exercises_with_answers.R" script
 
 ### Exercise 1: Importing -----
 # Import "mtcars.csv" in the "data" folder using fread, and name it "dt_cars"
